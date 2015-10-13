@@ -72,9 +72,10 @@ class SubprocessRepl(Repl):
         env[b"SUBLIMEREPL_AC_IP"] = settings.get("autocomplete_server_ip").encode("utf-8")
 
         if PY3:
+            fs_enc = sys.getfilesystemencoding()
             strings_env = {}
             for k, v in env.items():
-                strings_env[k.decode("utf-8")] = v.decode("utf-8")
+                strings_env[k.decode("utf-8")] = v.decode(fs_enc)
             env = strings_env
 
         self._cmd = self.cmd(cmd, env)
